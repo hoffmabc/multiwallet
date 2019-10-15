@@ -229,5 +229,18 @@ func NewDefaultConfig(coinTypes map[wallet.CoinType]bool, params *chaincfg.Param
 		}
 		cfg.Coins = append(cfg.Coins, ethCfg)
 	}
+	if coinTypes[wallet.Lightning] {
+		db, _ := mockDB.GetDatastoreForWallet(wallet.Lightning)
+		lbtcCfg := CoinConfig{
+			CoinType:  wallet.Lightning,
+			FeeAPI:    "",
+			LowFee:    140,
+			MediumFee: 160,
+			HighFee:   180,
+			MaxFee:    2000,
+			DB:        db,
+		}
+		cfg.Coins = append(cfg.Coins, lbtcCfg)
+	}
 	return cfg
 }

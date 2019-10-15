@@ -87,6 +87,8 @@ func coinType(args []string) pb.CoinType {
 		return pb.CoinType_LITECOIN
 	case "ethereum":
 		return pb.CoinType_ETHEREUM
+	case "lightning":
+		return pb.CoinType_LIGHTNING
 	default:
 		return pb.CoinType_BITCOIN
 	}

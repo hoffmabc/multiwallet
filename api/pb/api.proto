@@ -38,6 +38,7 @@ enum CoinType {
     ZCASH        = 2;
     LITECOIN     = 3;
     ETHEREUM     = 4;
+    LIGHTNING_BITCOIN = 5;
 }
 
 message Empty {}

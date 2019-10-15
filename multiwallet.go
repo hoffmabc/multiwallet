@@ -9,6 +9,7 @@ import (
 	"github.com/OpenBazaar/multiwallet/bitcoincash"
 	"github.com/OpenBazaar/multiwallet/client/blockbook"
 	"github.com/OpenBazaar/multiwallet/config"
+	"github.com/OpenBazaar/multiwallet/lightning"
 	"github.com/OpenBazaar/multiwallet/litecoin"
 	"github.com/OpenBazaar/multiwallet/service"
 	"github.com/OpenBazaar/multiwallet/zcash"
@@ -93,6 +94,16 @@ func NewMultiWallet(cfg *config.Config) (MultiWallet, error) {
 			//return nil, err
 			//}
 			//multiwallet[coin.CoinType] = w
+		case wallet.Lightning:
+			w, err = lightning.NewLightningWallet(coin, cfg.Mnemonic, cfg.Params, cfg.Proxy, cfg.Cache, cfg.DisableExchangeRates)
+			if err != nil {
+				return nil, err
+			}
+			NewLightningWallet.CreateAccount()
+			if cfg.Params.Name == chaincfg.MainNetParams.Name {
+				multiwallet[wallet.Lightning] = w
+			}
+
 		}
 	}
 	return multiwallet, nil
